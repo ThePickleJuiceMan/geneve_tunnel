@@ -1,0 +1,25 @@
+services:
+  te0:
+    hostname: te0
+    cap_add:
+      - NET_ADMIN
+    build: .
+    environment:
+      - TUNNEL_ENDPOINT_NAME=te0
+      - TUNNEL_VNI=1000
+      - OVERLAY_IP=100.75.0.254/24
+      - REMOTE_TE_NAME=te1
+      - REMOTE_OVERLAY_ROUTE=100.75.1.0/24
+      - REMOTE_OVERLAY_GATEWAY=100.75.1.254
+  te1:
+    hostname: te1
+    cap_add:
+      - NET_ADMIN
+    build: .
+    environment:
+      - TUNNEL_ENDPOINT_NAME=te1
+      - TUNNEL_VNI=1000
+      - OVERLAY_IP=100.75.1.254/24
+      - REMOTE_TE_NAME=te0
+      - REMOTE_OVERLAY_ROUTE=100.75.0.0/24
+      - REMOTE_OVERLAY_GATEWAY=100.75.0.254
